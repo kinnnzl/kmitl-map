@@ -45,6 +45,15 @@ areaRouter
     ctx.response.status = 200;
     next();
 })
+.get("Get by FloorID", "/floors/:id", async (ctx, next) => {
+    const db = Db();
+
+    const response = await db.table("Floor").where({id: parseInt(ctx.params.id)}).first();
+    db.destroy();
+    ctx.response.body = response;
+    ctx.response.status = 200;
+    next();
+})
 .get("Get buildings of area", "/areas/:id/buildings", async (ctx, next) => {
     const db = Db();
 
